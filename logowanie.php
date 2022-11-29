@@ -24,7 +24,7 @@
             <h2>
                 Zapisz się
             </h2>
-            <form method="POST">
+            <form method="POST" action="">
                 <label for="login">Login:</label>
                 <input type="text" id="login">
                 <br>
@@ -35,19 +35,20 @@
                 <input type="password" id="pass2">
                 <button type="submit">Zapisz</button>
             </form>
+        </div>
+        <?php
 
-            <?php
             $dbname = "psy";
             $dbhost = "localhost";
-            $dbuser = "root";
-            $dbpass = "";
+            $dbuser = "admin";
+            $dbpass = "zaq1@WSX";
 
             $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
             $login = $_POST["login"];
             $pass1 = $_POST["pass"];
             $pass2 = $_POST["pass2"];
             $kw1 = 'SELECT login FROM uzytkownicy WHERE login = $login';
-            
+            $test = 'INSERT INTO uzytkownicy (login, haslo) VALUES ($login, $pass1)';
 
 
 
@@ -59,39 +60,32 @@
 
 
             mysqli_close($con);
-            ?>
-
-
-
-
-
-        </div>
-        <div id="prawy">
-            <div id="prawydolny">
-                <h2>
-                    Zapraszamy wszystkich <?php echo $login ?>
-                </h2>
-                <ol>
-                    <li>
-                        właścicieli psów
-                    </li>
-                    <li>
-                        weterynarzy
-                    </li>
-                    <li>
-                        tych, co chcą kupić psa
-                    </li>
-                    <li>
-                        tych, co lubią psy
-                    </li>
-                </ol>
-                <a href="regulamin.html">Przeczytaj regulamin Forum</a>
-            </div>
+        ?>
+        <div id="prawydolny">
+            <h2>
+                Zapraszamy wszystkich <?php echo $login ?>
+            </h2>
+            <ol>
+                <li>
+                    właścicieli psów
+                </li>
+                <li>
+                    weterynarzy
+                </li>
+                <li>
+                    tych, co chcą kupić psa
+                </li>
+                <li>
+                    tych, co lubią psy
+                </li>
+            </ol>
+            <a href="regulamin.html">Przeczytaj regulamin Forum</a>
         </div>
     </div>
     <footer>
         Stronę wykonał: Siwek
     </footer>
+
 </body>
 
 </html>

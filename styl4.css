@@ -5,34 +5,41 @@ body {
     height: 100%;
     margin: 0%;
 }
+
 #banner {
     background-color: SaddleBrown;
     color: white;
     text-align: center;
     height: 50px;
+    margin-top: 0px;
 }
+
 #lewy {
     background-color: Tan;
     height: 500px;
     width: 40%;
     float: left;
 }
+
 #prawygorny {
     background-color: Tan;
     height: 250px;
     width: 60%;
     float: right;
 }
+
 #prawydolny {
     background-color: Tan;
     height: 250px;
     width: 60%;
     float: right;
 }
+
 footer {
     background-color: saddlebrown;
     color: white;
 }
+
 form {
     background-color: saddlebrown;
     color: white;
@@ -42,12 +49,15 @@ form {
     padding-right: 30px;
     width: 300px;
 }
+
 input {
     margin: 5px;
 }
+
 p::before {
     content: "STATUS:";
 }
+
 html {
     padding: 0%;
 }
