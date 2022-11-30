@@ -26,60 +26,61 @@
             </h2>
             <form method="POST" action="">
                 <label for="login">Login:</label>
-                <input type="text" id="login" name="login" value="Pieki">
+                <input type="text" id="login" name="login">
                 <br>
                 <label for="pass">Hasło:</label>
-                <input type="password" id="pass" name="pass" value="1337">
+                <input type="password" id="pass" name="pass">
                 <br>
                 <label for="pass2">Powtórz hasło:</label>
-                <input type="password" id="pass2" name="pass2" value="1337">
+                <input type="password" id="pass2" name="pass2">
                 <button type="submit">Zapisz</button>
             </form>
-        </div>
-        <?php
-        $database = "psy";
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
 
-        $pieki1337 = "";
+            <?php
+            $database = "psy";
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
 
-        $conn = mysqli_connect($servername, $username, $password, $database);
+            $pieki1337 = "";
 
-        if ($conn->connect_error) {
-            die("Connection failed: "
-                . $conn->connect_error);
-        }
+            $conn = mysqli_connect($servername, $username, $password, $database);
 
-        if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass2'])) {
-            $login = $_POST['login'];
-            $pass1 = $_POST['pass'];
-            $pass2 = $_POST['pass2'];
-            if (!$login || !$pass1 || !$pass2) {
-                $pieki1337 = "wypełnij wszystkie pola";
-            } else {
-                $sql = "SELECT login FROM uzytkownicy where login = '$login'";
-                $query = mysqli_query($conn, $sql);
-                $row = mysqli_fetch_assoc($query);
-                if (!$row) {
-                    if ($pass1 != $pass2) {
-                        $pieki1337 = "hasła nie są takie same, konto nie zostało dodane";
-                    } else {
-                        $spass = sha1($pass1);
-                        $sqjd = "INSERT INTO uzytkownicy (login, haslo) VALUES ('$login', '$spass'); ";
-                        mysqli_query($conn, $sqjd);
-                        $pieki1337 = "Konto zostało dodane";
-                    }
+            if ($conn->connect_error) {
+                die("Connection failed: "
+                    . $conn->connect_error);
+            }
+
+            if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass2'])) {
+                $login = $_POST['login'];
+                $pass1 = $_POST['pass'];
+                $pass2 = $_POST['pass2'];
+                if (!$login || !$pass1 || !$pass2) {
+                    $pieki1337 = "wypełnij wszystkie pola";
                 } else {
-                    $pieki1337 = "login występuje w bazie danych, konto nie zostało dodane";
+                    $sql = "SELECT login FROM uzytkownicy where login = '$login'";
+                    $query = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($query);
+                    if (!$row) {
+                        if ($pass1 != $pass2) {
+                            $pieki1337 = "hasła nie są takie same, konto nie zostało dodane";
+                        } else {
+                            $spass = sha1($pass1);
+                            $sqjd = "INSERT INTO uzytkownicy (login, haslo) VALUES ('$login', '$spass'); ";
+                            mysqli_query($conn, $sqjd);
+                            $pieki1337 = "Konto zostało dodane";
+                        }
+                    } else {
+                        $pieki1337 = "login występuje w bazie danych, konto nie zostało dodane";
+                    }
                 }
             }
-        }
 
-        echo "<p>$pieki1337</p>";
+            echo "<p>$pieki1337</p>";
 
-        mysqli_close($conn);
-        ?>
+            mysqli_close($conn);
+            ?>
+        </div>
         <div id="prawydolny">
             <h2>
                 Zapraszamy wszystkich
