@@ -56,22 +56,22 @@
             $pass1 = $_POST['pass'];
             $pass2 = $_POST['pass2'];
             if (!$login || !$pass1 || !$pass2) {
-                $pieki1337 = "Wypełnij wszystkie pola";
+                $pieki1337 = "wypełnij wszystkie pola";
             } else {
                 $sql = "SELECT login FROM uzytkownicy where login = '$login'";
                 $query = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($query);
                 if (!$row) {
                     if ($pass1 != $pass2) {
-                        $pieki1337 = "Byku popraw hasło bo coś nie śmiga :)";
+                        $pieki1337 = "hasła nie są takie same, konto nie zostało dodane";
                     } else {
                         $spass = sha1($pass1);
                         $sqjd = "INSERT INTO uzytkownicy (login, haslo) VALUES ('$login', '$spass'); ";
                         mysqli_query($conn, $sqjd);
-                        $pieki1337 = "Dodałem cb";
+                        $pieki1337 = "Konto zostało dodane";
                     }
                 } else {
-                    $pieki1337 = "Jesteś zarejestrowany mordo";
+                    $pieki1337 = "login występuje w bazie danych, konto nie zostało dodane";
                 }
             }
         }
