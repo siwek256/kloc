@@ -26,44 +26,63 @@
             </h2>
             <form method="POST" action="">
                 <label for="login">Login:</label>
-                <input type="text" id="login">
+                <input type="text" id="login" name="login" value="Pieki">
                 <br>
                 <label for="pass">Hasło:</label>
-                <input type="password" id="pass">
+                <input type="password" id="pass" name="pass" value="1337">
                 <br>
                 <label for="pass2">Powtórz hasło:</label>
-                <input type="password" id="pass2">
+                <input type="password" id="pass2" name="pass2" value="1337">
                 <button type="submit">Zapisz</button>
             </form>
         </div>
         <?php
+        $database = "psy";
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
 
-            $dbname = "psy";
-            $dbhost = "localhost";
-            $dbuser = "admin";
-            $dbpass = "zaq1@WSX";
+        $pieki1337 = "";
 
-            $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-            $login = $_POST["login"];
-            $pass1 = $_POST["pass"];
-            $pass2 = $_POST["pass2"];
-            $kw1 = 'SELECT login FROM uzytkownicy WHERE login = $login';
-            $test = 'INSERT INTO uzytkownicy (login, haslo) VALUES ($login, $pass1)';
+        $conn = mysqli_connect($servername, $username, $password, $database);
 
+        if ($conn->connect_error) {
+            die("Connection failed: "
+                . $conn->connect_error);
+        }
 
+        if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass2'])) {
+            $login = $_POST['login'];
+            $pass1 = $_POST['pass'];
+            $pass2 = $_POST['pass2'];
+            if (!$login || !$pass1 || !$pass2) {
+                $pieki1337 = "Wypełnij wszystkie pola";
+            } else {
+                $sql = "SELECT login FROM uzytkownicy where login = '$login'";
+                $query = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($query);
+                if (!$row) {
+                    if ($pass1 != $pass2) {
+                        $pieki1337 = "Byku popraw hasło bo coś nie śmiga :)";
+                    } else {
+                        $spass = sha1($pass1);
+                        $sqjd = "INSERT INTO uzytkownicy (login, haslo) VALUES ('$login', '$spass'); ";
+                        mysqli_query($conn, $sqjd);
+                        $pieki1337 = "Dodałem cb";
+                    }
+                } else {
+                    $pieki1337 = "Jesteś zarejestrowany mordo";
+                }
+            }
+        }
 
-            echo $login;
+        echo "<p>$pieki1337</p>";
 
-
-
-
-
-
-            mysqli_close($con);
+        mysqli_close($conn);
         ?>
         <div id="prawydolny">
             <h2>
-                Zapraszamy wszystkich <?php echo $login ?>
+                Zapraszamy wszystkich
             </h2>
             <ol>
                 <li>
